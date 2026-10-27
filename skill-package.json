@@ -1,0 +1,47 @@
+{
+  "schema": "https://rahuldave.github.io/agent_skill_package_maker/schema/skill-package.v1.json",
+  "version": 1,
+  "repository": {
+    "owner": "rahuldave",
+    "name": "sklanes",
+    "url": "https://github.com/rahuldave/sklanes"
+  },
+  "skills": [
+    {
+      "name": "lanes",
+      "path": ".agents/skills/lanes",
+      "installer": ".agents/skills/lanes/scripts/install.mjs"
+    }
+  ],
+  "installers": [
+    {
+      "path": ".agents/skills/lanes/scripts/install.mjs",
+      "description": "Opt-in portable Lanes CLI and native global Codex/Claude skill copies; no hooks, settings or credentials.",
+      "checks_prerequisites": true
+    },
+    {
+      "path": "scripts/install.sh",
+      "description": "Copy the lanes skill into a target repository and record the source revision in .agents/sklanes-install.json.",
+      "checks_prerequisites": true
+    }
+  ],
+  "executables": {
+    "required": [],
+    "optional": [
+      {
+        "name": "node",
+        "check": "node --version",
+        "description": "Node.js >=22 runs the lanes command and its installer. The installer checks the version itself."
+      },
+      {
+        "name": "git",
+        "check": "git --version",
+        "description": "Records the source revision of an install."
+      }
+    ]
+  },
+  "npx": {
+    "supported": true,
+    "install": "npx skills add rahuldave/sklanes -g -a codex -a claude-code --skill lanes --copy -y"
+  }
+}
