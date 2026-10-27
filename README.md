@@ -64,3 +64,7 @@ records its own source revision in the target:
 
 The skill came from agent_gest_git_skills, where it was added in pull request
 49. This repository is now its source.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
