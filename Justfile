@@ -48,3 +48,7 @@ check:
 # Copy the lanes skill into a target repository. Extra arguments go to the installer: just install ../app --dry-run
 install target *args:
     scripts/install.sh "$@"
+
+# Check that each link to a skill of another package has a fallback, with the checker of a jnterfaces clone: just links ../jnterfaces
+links jnterfaces="../jnterfaces":
+    find .agents/skills -type f \( -name '*.md' -o -name '*.mjs' -o -name '*.sh' -o -name '*.yaml' \) -exec python3 "$1/scripts/check_skill_links.py" --package . --resolve "$1" {} +
