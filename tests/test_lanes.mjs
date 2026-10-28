@@ -304,3 +304,11 @@ test('skill copied into another Git project never claims that HEAD as its upstre
   assert.equal(rerun.code, 0, rerun.stderr);
   assert.ok(!(rerun.stdout + rerun.stderr + await readFile(join(home, '.local/share/lanes/install.json'), 'utf8')).includes('REVIEW_SECRET'));
 }));
+
+test('the skill names its MIT licence, and the repository has the full text', async () => {
+  const skill = await readFile(join(source, 'SKILL.md'), 'utf8');
+  const front = skill.match(/^---\n([\s\S]*?)\n---\n/)[1];
+  assert.match(front, /^license: MIT, copyright \(c\) 2026 Rahul Dave\. .*https:\/\/github\.com\/rahuldave\/sklanes$/m);
+  const licence = await readFile(new URL('../LICENSE', import.meta.url), 'utf8');
+  assert.match(licence, /^MIT License\n\nCopyright \(c\) 2026 Rahul Dave\n/);
+});

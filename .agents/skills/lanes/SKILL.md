@@ -1,6 +1,7 @@
 ---
 name: lanes
 description: Report explicit human attention requests and manage ordinary todos in a configured Lanes project from Codex, Claude or a terminal. Use before yielding for a real answer, decision, review or action, and check saved replies on resumption. Also install the portable client when requested. Routine running/completed status is not a request.
+license: MIT, copyright (c) 2026 Rahul Dave. The full text is in the LICENSE file of https://github.com/rahuldave/sklanes
 ---
 
 # Lanes
