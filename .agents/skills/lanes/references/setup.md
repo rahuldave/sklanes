@@ -10,6 +10,9 @@ node .agents/skills/lanes/scripts/install.mjs --dry-run
 node .agents/skills/lanes/scripts/install.mjs
 ```
 
+Without node on the machine, put `uvx --from 'nodejs-wheel==24.*'` in front of
+each `node` command.
+
 This installs both global native skills and the standalone CLI. The install
 manifest records the exact source revision and content hashes.
 
@@ -20,8 +23,10 @@ npx skills add rahuldave/sklanes -g -a codex -a claude-code --skill lanes --copy
 ```
 
 To copy the skill into one repository, with its revision recorded in
-`.agents/sklanes-install.json`, run `scripts/install.sh TARGET` from the clone.
-That installer needs `python3` and `git`.
+`.agents/sklanes-install.json`, run `just install reporter` in that repository.
+The `install` recipe comes from jnterfaces. If jnterfaces is not installed,
+use `npx skills add` without `-g` instead. Without node, run npx as
+`uvx --from 'nodejs-wheel==24.*' npx`.
 
 The `npx` command fetches main. The manifest in
 `~/.local/share/lanes/install.json` records the exact content hashes and source
@@ -31,7 +36,8 @@ copies. New agent sessions discover the installed skill; existing sessions can
 read the installed SKILL.md explicitly. Skill discovery encourages reporting;
 it cannot guarantee every session will invoke it.
 
-Node.js 22 or newer is the only runtime prerequisite. After `npx` installs the
+Node.js 22 or newer is the only runtime prerequisite. Without it, uv runs node
+from the `nodejs-wheel` package: `uvx --from 'nodejs-wheel==24.*' node`. After `npx` installs the
 skill, invoke its bundled installer with `--cli-only` to add the PATH command.
 The `npx` path needs no root-level repository scripts. A skill-only install can invoke
 `node <installed-skill>/scripts/lanes.mjs` directly without a PATH command.
