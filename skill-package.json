@@ -18,11 +18,6 @@
       "path": ".agents/skills/lanes/scripts/install.mjs",
       "description": "Opt-in portable Lanes CLI and native global Codex/Claude skill copies; no hooks, settings or credentials.",
       "checks_prerequisites": true
-    },
-    {
-      "path": "scripts/install.sh",
-      "description": "Copy the lanes skill into a target repository and record the source revision in .agents/sklanes-install.json.",
-      "checks_prerequisites": true
     }
   ],
   "executables": {
@@ -31,12 +26,7 @@
       {
         "name": "node",
         "check": "node --version",
-        "description": "Node.js >=22 runs the lanes command and its installer. The installer checks the version itself."
-      },
-      {
-        "name": "git",
-        "check": "git --version",
-        "description": "Records the source revision of an install."
+        "description": "Node.js >=22 runs the lanes command and its installer. Without node, run them with uvx --from 'nodejs-wheel==24.*' node. The installer checks the version itself."
       }
     ]
   },

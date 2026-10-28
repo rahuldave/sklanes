@@ -13,7 +13,8 @@ checkout, a local server, hooks, a watcher, a queue or an MCP bridge.
 ## Set up or check availability
 
 Use `lanes --help`. If it is absent, use `node scripts/lanes.mjs` relative to
-this skill directory. When the user asks to install it globally, run the bundled
+this skill directory. If `node` is absent too, use
+`uvx --from 'nodejs-wheel==24.*' node` in its place. When the user asks to install it globally, run the bundled
 `node scripts/install.mjs --dry-run`, inspect conflicts, then run without
 `--dry-run`. It copies the CLI to `~/.local/bin/lanes` and the skill to the native
 Codex and Claude skill directories. It preserves unrelated files and refuses

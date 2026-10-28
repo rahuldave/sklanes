@@ -19,6 +19,10 @@ node .agents/skills/lanes/scripts/install.mjs --dry-run
 node .agents/skills/lanes/scripts/install.mjs
 ```
 
+If `node` is not on the machine, uv runs it. Put
+`uvx --from 'nodejs-wheel==24.*'` in front of each command, for example
+`uvx --from 'nodejs-wheel==24.*' node .agents/skills/lanes/scripts/install.mjs`.
+
 The installer copies the command to `~/.local/bin/lanes` and the skill to the
 skill folders of Codex and Claude. It records hashes and the source revision in
 `~/.local/share/lanes/install.json`. It changes no hooks, settings or
@@ -27,16 +31,18 @@ binding and credentials.
 
 ## Install the skill into one repository
 
+jnterfaces installs the skill in the role `reporter`. In a project with
+jnterfaces, run this command:
+
 ```bash
-scripts/install.sh ../my-project --dry-run
-scripts/install.sh ../my-project
+just install reporter
 ```
 
-The repository installer copies the skill to `.agents/skills/lanes/` in the
-target. It records the source revision in `.agents/sklanes-install.json`. It
-never overwrites or removes a file that you edited after an install. It takes
-over an unchanged copy that an older agent_gest_git_skills install left.
-The repository installer needs `python3` and `git`.
+The installer of jnterfaces clones this repository and copies the skill to
+`.agents/skills/lanes/`. It records the source revision in
+`.agents/sklanes-install.json`. It never overwrites or removes a file that you
+edited after an install. `just uninstall reporter` takes the skill out again.
+This repository has no installer of its own for a repository.
 
 ## Use with the other skill packages
 
@@ -46,11 +52,11 @@ sklanes is the optional part of a combined install:
 - **jnterfaces** has the skills for the Justfile, jagt packets and cx.
 - **sklanes** has the `lanes` skill.
 
-The stack installer of agent_gest_git_skills installs all three. Each package
+The `just install` recipe of jnterfaces installs all three. Each package
 records its own source revision in the target:
 
 ```bash
-../agent_gest_git_skills/scripts/install_stack.sh ../my-project --with-lanes
+just install tasker reporter
 ```
 
 ## Work on this repository
@@ -58,7 +64,7 @@ records its own source revision in the target:
 | Command | What it does |
 |---|---|
 | `just lint` | Checks the syntax of the scripts and the JSON. |
-| `just test` | Runs the tests of the client and both installers. |
+| `just test` | Runs the tests of the client and of its global installer. |
 | `just check` | Runs `just lint` and `just test`. Every commit must pass it. |
 | `just package-lint` | Checks `skill-package.json` with skill-package-maker. |
 
